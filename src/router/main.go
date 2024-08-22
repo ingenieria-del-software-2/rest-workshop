@@ -1,11 +1,10 @@
 package router
 
-type Item struct {
-	Id    string  `json:"id"`
-	Name  string  `json:"name"`
-	Price float64 `json:"price"`
-}
+import (
+	"github.com/gin-gonic/gin"
+)
 
-type Error struct {
-	Message string `json:"message"`
+func CreateRouter() *gin.Engine {
+	r := gin.Default()
+	return r
 }
