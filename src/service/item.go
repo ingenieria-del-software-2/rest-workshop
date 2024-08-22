@@ -8,3 +8,7 @@ import (
 type Item struct {
 	db database.DB[models.Item]
 }
+
+func CreateServiceItem(db database.DB[models.Item]) Item {
+	return Item{db}
+}
