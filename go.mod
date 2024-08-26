@@ -5,6 +5,8 @@ go 1.22.4
 require (
 	github.com/gin-gonic/gin v1.10.0
 	github.com/go-playground/assert/v2 v2.2.0
+	github.com/jmoiron/sqlx v1.4.0
+	github.com/lib/pq v1.10.9
 	github.com/spf13/viper v1.19.0
 )
 

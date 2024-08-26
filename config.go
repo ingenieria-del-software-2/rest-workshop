@@ -12,6 +12,7 @@ type Config struct {
 	Environment      string
 	DatabaseHost     string
 	DatabasePort     string
+	DatabaseName     string
 	DatabaseUser     string
 	DatabasePassword string
 }
@@ -37,6 +38,7 @@ func LoadConfig() *Config {
 		Environment:      viper.GetString("ENVIRONMENT"),
 		DatabaseHost:     viper.GetString("DATABASE_HOST"),
 		DatabasePort:     viper.GetString("DATABASE_PORT"),
+		DatabaseName:     viper.GetString("DATABASE_NAME"),
 		DatabaseUser:     viper.GetString("DATABASE_USER"),
 		DatabasePassword: viper.GetString("DATABASE_PASSWORD"),
 	}
