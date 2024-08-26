@@ -16,6 +16,7 @@ func CreateRouter(db *database.DB) *gin.Engine {
 
 	// Define routes
 	r.POST("/item", itemController.AddItem)
+	r.GET("/item/:id", itemController.GetItem)
 
 	return r
 }
