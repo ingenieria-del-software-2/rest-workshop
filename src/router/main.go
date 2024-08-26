@@ -4,14 +4,18 @@ import (
 	"github.com/gin-gonic/gin"
 	"rest-workshop/src/controller"
 	"rest-workshop/src/database"
-	"rest-workshop/src/models"
 	"rest-workshop/src/service"
 )
 
-func CreateRouter() *gin.Engine {
+func CreateRouter(db *database.DB) *gin.Engine {
 	r := gin.Default()
-	db := database.CreateDB[models.Item]()
-	c := controller.CreateControllerItem(service.CreateServiceItem(db))
-	r.POST("/item", c.AddItem)
+
+	// Initialize services and controllers
+	itemService := service.CreateServiceItem(db)
+	itemController := controller.CreateControllerItem(itemService)
+
+	// Define routes
+	r.POST("/item", itemController.AddItem)
+
 	return r
 }

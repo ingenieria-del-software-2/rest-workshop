@@ -8,25 +8,23 @@ import (
 )
 
 type Item struct {
-	service service.Item
+	service *service.Item
 }
 
-func (i Item) AddItem(context *gin.Context) {
+func (i *Item) AddItem(context *gin.Context) {
 	var item models.Item
 	if err := context.Bind(&item); err != nil {
-		context.JSON(http.StatusBadRequest, models.Error{err.Error()})
-		return
-	} else if item.Id == "" {
-		context.JSON(http.StatusBadRequest, models.Error{"missing id"})
+		context.JSON(http.StatusBadRequest, models.Error{Message: err.Error()})
 		return
 	}
+
 	if value, err := i.service.CreateItem(item); err != nil {
-		context.JSON(http.StatusConflict, models.Error{"already existed"})
+		context.JSON(http.StatusConflict, models.Error{Message: "failed to create item"})
 	} else {
-		context.JSON(201, value)
+		context.JSON(http.StatusCreated, value)
 	}
 }
 
-func CreateControllerItem(service service.Item) Item {
-	return Item{service}
+func CreateControllerItem(service *service.Item) *Item {
+	return &Item{service}
 }

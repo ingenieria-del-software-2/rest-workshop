@@ -1,9 +1,8 @@
 package models
 
 type Item struct {
-	Id    string  `json:"id"`
-	Name  string  `json:"name"`
-	Price float64 `json:"price"`
+	Name  string  `json:"name" db:"name"`
+	Price float64 `json:"price" db:"price"`
 }
 
 type Error struct {
