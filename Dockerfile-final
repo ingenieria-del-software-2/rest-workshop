@@ -1,0 +1,31 @@
+# Stage 1: Build the Go application
+FROM golang:1.22.4-alpine AS builder
+
+# Set the working directory inside the container
+# RUN mkdir /app # its not needed because If the WORKDIR doesn't exist, it will be created even if it's not used in any subsequent Dockerfile instruction.
+# https://docs.docker.com/reference/dockerfile/#workdir
+WORKDIR /app
+
+# Copy go.mod and go.sum files
+COPY go.mod go.sum ./
+
+# Download dependencies
+RUN go mod download
+
+# Copy the rest of the application source code
+COPY . .
+
+# Build the Go application
+RUN go build -o rest-workshop .
+
+# Stage 2: Create a lightweight container to run the Go application
+FROM alpine:latest
+
+# Set the working directory inside the container
+WORKDIR /app
+
+# Copy the built binary from the builder stage
+COPY --from=builder /app/rest-workshop .
+
+# Command to run the application
+CMD ["./rest-workshop"]
